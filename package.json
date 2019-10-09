@@ -1,0 +1,27 @@
+{
+  "name": "express-with-mongoose",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node index.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon index.js",
+    "start:db": "mongod --dbpath ~/data/db",
+    "test:watch": "jest --watch",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.7.3"
+  },
+  "devDependencies": {
+    "cross-env": "^6.0.3",
+    "jest": "^24.9.0",
+    "mongodb-memory-server": "^5.2.7",
+    "nodemon": "^1.19.3",
+    "supertest": "^4.0.2"
+  }
+}
