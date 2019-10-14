@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Kitten = require("../models/Kitten");
+const jwt = require("jsonwebtoken");
 
-//TO RETURN ALL KITTENS
 router.get("/", async (req, res, next) => {
   try {
     const kittens = await Kitten.find(req.query);
@@ -12,7 +12,6 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-//TO RETURN ONLY A CERTAIN KITTEN
 router.get("/:name", async (req, res, next) => {
   try {
     const name = req.params.name;
@@ -24,7 +23,6 @@ router.get("/:name", async (req, res, next) => {
   }
 });
 
-//TO CREATE A NEW KITTEN
 router.post("/new", async (req, res, next) => {
   try {
     const kitten = new Kitten(req.body);
@@ -35,6 +33,54 @@ router.post("/new", async (req, res, next) => {
     if (err.name === "ValidationError") {
       err.status = 400;
     }
+    next(err);
+  }
+});
+
+router.put("/:name", async (req, res, next) => {
+  try {
+    const name = req.params.name;
+    const query = { name };
+    const newKitten = req.body;
+    const kitten = await Kitten.findOneAndReplace(query, newKitten);
+    res.send(kitten);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.patch("/:name", async (req, res, next) => {
+  try {
+    const name = req.params.name;
+    const updatedKitten = req.body;
+    const query = { name };
+    const kitten = await Kitten.findOneAndReplace(query, updatedKitten, {
+      new: true
+    });
+    res.send(kitten);
+  } catch (err) {
+    next(err);
+  }
+});
+
+const protectedRoute = (req, res, next) => {
+  try {
+    if (!req.cookies.token) {
+      throw new Error("Go away!");
+    }
+    req.user = jwt.verify(req.cookies.token, process.env.JWT_SECRET_KEY);
+    next();
+  } catch (err) {
+    res.status(401).end("You are not authorised ");
+  }
+};
+
+router.delete("/:id", protectedRoute, async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    await Kitten.findByIdAndDelete(id);
+    res.send();
+  } catch (err) {
     next(err);
   }
 });

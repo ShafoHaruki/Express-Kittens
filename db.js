@@ -5,8 +5,11 @@ mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 mongoose.set("useUnifiedTopology", true);
 
-const dbName = "test";
-const dbUrl = `mongodb://localhost/${dbName}`;
+const dbName = "kittens-db";
+let dbUrl;
+if (process.env.NODE_ENV === "development") {
+  dbUrl = `mongodb://localhost/${dbName}`;
+}
 mongoose.connect(dbUrl);
 
 const db = mongoose.connection;
