@@ -3,7 +3,11 @@ const app = express();
 const cors = require("cors");
 // app.use(cookieParser());
 
-console.log("What environment am I in?", process.env.NODE_ENV, app.get("env"));
+console.log(
+  "What environment am I in?",
+  process.env.NODE_ENV,
+  process.env.PORT
+);
 
 //This is to connect to database
 if (app.get("env") !== "test") {
