@@ -10,7 +10,7 @@ const env = app.get("env");
 //   port = port.process.PORT
 // }
 
-const PORT = port.process.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`App is now listening in Port ${PORT} in ${env} mode`);
