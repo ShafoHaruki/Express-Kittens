@@ -4,7 +4,7 @@ const kittySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    index: true,
+    index: true, //this is to set in alphabetical order
     unique: true,
     minlength: 3,
     lowercase: true

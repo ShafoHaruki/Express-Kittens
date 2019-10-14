@@ -67,7 +67,7 @@ router.post("/new", async (req, res, next) => {
   }
 });
 
-router.post("/logout", (_req, res) => {
+router.post("/logout", (req, res) => {
   res.clearCookie("token").send("You are now logged out!");
 });
 

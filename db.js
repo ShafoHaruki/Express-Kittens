@@ -10,14 +10,12 @@ if (process.env.NODE_ENV === "production") {
   dbUrl = process.env.MONGO_URI;
 }
 
-dbUrl = process.env.MONGO_URI;
-
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 mongoose.set("useUnifiedTopology", true);
 
-console.log("dbUrl", dbUrl);
+// console.log("dbUrl", dbUrl);
 
 mongoose.connect(dbUrl);
 const db = mongoose.connection;

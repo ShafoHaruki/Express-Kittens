@@ -24,13 +24,13 @@ const ownerSchema = new mongoose.Schema({
   // }
 });
 
-ownerSchema.virtual("fullName").get(function() {
-  return `${this.salutation} ${this.firstName} ${this.lastName}`;
-});
+// ownerSchema.virtual("fullName").get(function() {
+//   return `${this.salutation} ${this.firstName} ${this.lastName}`;
+// });
 
-ownerSchema.virtual("reverseName").get(function() {
-  return `${this.lastName}, ${this.firstName}`;
-});
+// ownerSchema.virtual("reverseName").get(function() {
+//   return `${this.lastName}, ${this.firstName}`;
+// });
 
 ownerSchema.pre("save", async function(next) {
   const rounds = 10;
